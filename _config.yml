@@ -105,8 +105,6 @@ menu:
   Home: /
   Archives: /archives
   Tag: /tags
-  Github: https://github.com/weasellin
-  About: /about
 rss: /atom.xml
 
 # Content

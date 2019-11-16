@@ -19,7 +19,7 @@ restart: build stop start
 post:
 	docker exec -it \
 		hexo \
-		hexo new ${POST}
+		hexo new "${POST}"
 
 publish:
 	docker exec -it \
