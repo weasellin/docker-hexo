@@ -10,7 +10,7 @@ RUN npm install hexo-cli@3.1.0 -g
 RUN hexo init blog && \
     cd blog && \
     npm install && \
-    npm install hexo-deployer-git && \
+    npm install --save hexo-deployer-git && \
     git clone https://github.com/weasellin/hexo-theme-jane.git themes/jane
 
 COPY _config.yml /blog/_config.yml

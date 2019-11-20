@@ -83,9 +83,52 @@ Term:
 
 | Format | Summary | Limitation |
 |---|---|---|
-| Writables |  | Only in Hadoop & Java |
+| Writables | - simple, efficient, serializable | Only in Hadoop & Java |
 | Thrift | - language-natrual <br> - by Facebook <br> - use IDL <br> -robust RPC | - no internal compression of records <br> - not splittable <br> - not native MapReduce support <br> (addressed by Elephant Bird) |
 | Protocol Buffers | - language-natrual <br> - by Google <br> - use IDL, stub code generation | same as Thrift |
 | Avro | - language-natrual <br> - optional IDL: JSON, C-like <br> - native support for MapReduce <br> - compressible: Snappy, Deflate <br> - splittable: sync marker <br> - self-decribing: schema in each file header's metadata |
 
 Additional refer: http://blog.maxkit.com.tw/2017/10/thrift-protobuf-avro.html
+
+### Columnar Formats
+
+- skip I/O and decompression
+- efficient columnar compression rate
+
+Term:
+- **RCFile** (Record Columnar File)
+- **ORC** (Optimized Row Columnar)
+- **RLE** (bit-packaging/run length encoding)
+
+| Format | Summary | Limitation |
+|---|---|---|
+| RCFile | column-oriented storage within each row splits | has some deficiencies that prevent optimal performance for query times and compression <br> (what's this exactly?) |
+| ORC | - lightweight, always-on compression <br> - zlib, LZO, Snappy <br> - predicate push down <br> - Hive type, including decimal, complex <br> - splittable | - only designed for Hive, not general purpose |
+| Parquet | - per-column level compression <br> - support nested data structure <br> - full metadata, self-documenting <br> - fully support Avro, Thrift API <br> - efficient and extensible encoding schemas, RLE |  |
+
+##### Avro and Parquet
+
+- single interface: recommended if you are choosing for the single interface
+- compatibility: Parquet can be read and written to with Avro APIs and Avro schemas
+
+### Compression
+
+- disk & network I/O
+- source & intermediate data
+- trade with CPU loading
+- splittability for parallelism and data locality
+
+| Format | Summary | Limitation |
+|---|---|---|
+| Snappy | - developed at Google <br> - high speed and reasonable compression rate | - not inherently splittable <br> - intended to be used with a container format |
+| LZO | - very efficient decompression <br> - splittable | - requires additional indexing <br> - requires a separated installation from Hadoop because of license prevention |
+| Gzip | - good compression rate, 2.5x to Snappy <br> - read almost as fast as Snappy | - write speed about half to Snappy <br> - not splittable <br> - fewer blocks might lead to lower parallelism => using smaller blocks |
+| bzip2 | - excellent compression rate, 9% better than Gzip | - slow read / write, 10x slower than Gzip <br> - only used in archival purposes |
+
+#### Compression Recommendation
+
+- Enable compression of the MapReduce intermediate data
+- Compress on columnar chunks
+- With splittable container formats, ex. Avro or SequenceFiles, make the compression & decompression could be processed individually
+
+![Compression Block](Hadoop-Application-Architectures-Ch-1-Data-Modeling-in-Hadoop/container_format_and_compression_block.png)
