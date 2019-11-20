@@ -131,4 +131,4 @@ Term:
 - Compress on columnar chunks
 - With splittable container formats, ex. Avro or SequenceFiles, make the compression & decompression could be processed individually
 
-![Compression Block](Hadoop-Application-Architectures-Ch-1-Data-Modeling-in-Hadoop/container_format_and_compression_block.png)
+![Compression Block](https://github.com/weasellin/docker-hexo/raw/master/source/_posts/Hadoop-Application-Architectures-Ch-1-Data-Modeling-in-Hadoop/container_format_and_compression_block.png)
