@@ -244,7 +244,7 @@ implementations example
 ##### LOADING MANY TABLES IN PARALLEL WITH FAIR SCHEDULER THROTTLING
 
 - Load the tables sequentially
-![](https://github.com/weasellin/docker-hexo/raw/master/source/_posts/Hadoop-Application-Architectures-Ch-2-Data-Movement/load_sequencially.png)
+![](https://github.com/weasellin/docker-hexo/raw/master/source/_posts/Hadoop-Application-Architectures-Ch-2-Data-Movement/load_sequentially.png)
 
 - Load the tables in parallel (Fair Scheduler)
 ![](https://github.com/weasellin/docker-hexo/raw/master/source/_posts/Hadoop-Application-Architectures-Ch-2-Data-Movement/load_parallel.png)
