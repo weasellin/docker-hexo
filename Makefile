@@ -10,7 +10,7 @@ start:
 	docker run -d \
 		--name hexo \
 		--volume ${PWD}/source:/blog/source \
-		--volume ${HOME}/.ssh/github_rsa:/root/.ssh/id_rsa:ro \
+		--volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa:ro \
 		-p 4000:4000 \
 		hexo
 
